@@ -13,9 +13,7 @@ class Window:
         self._canvas = Canvas(self._root, width=width, height=height, bg="white")
         self._canvas.pack()
 
-        self.x = 100
-        self.seg1 = Segment(self.x, 100, self._canvas, width, height)
-        #self.seg2 = Segment(115, 100, self._canvas)
+        self.snake = Snake(self._canvas, width, height)
 
         button_quit = Button(self._root, text="exit", command=self._root.quit)
         button_quit.pack()
@@ -25,7 +23,7 @@ class Window:
 
     def refresh(self):
         print("Frame Update") # this should call something to update the snake
-        self.seg1.move("up")
+        self.snake.move("down")
         
 
         # every refresh:
