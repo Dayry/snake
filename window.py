@@ -1,4 +1,5 @@
 from tkinter import *
+from snake import *
 
 
 class Window:
@@ -12,6 +13,10 @@ class Window:
         self._canvas = Canvas(self._root, width=width, height=height, bg="white")
         self._canvas.pack()
 
+        self.x = 100
+        self.seg1 = Segment(self.x, 100, self._canvas, width, height)
+        #self.seg2 = Segment(115, 100, self._canvas)
+
         button_quit = Button(self._root, text="exit", command=self._root.quit)
         button_quit.pack()
 
@@ -20,6 +25,9 @@ class Window:
 
     def refresh(self):
         print("Frame Update") # this should call something to update the snake
+        self.seg1.move("up")
+        
+
         # every refresh:
             # draw all parts of the snake at their current locations
             # draw fruit at its current location
