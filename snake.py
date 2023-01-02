@@ -9,27 +9,34 @@ class Snake:
 
         # Create the snake
         next_seg = 0
-        for i in range(1):
-            self._body.append(Segment(300, 100+next_seg, self._canvas, max_x, max_y))
+        for i in range(2):
+            self._body.append(Segment(300, 100+next_seg, self._canvas, max_x, max_y, i))
             next_seg += 20
 
         self._head = self._body[0]
 
     def move(self):
         self._head.move(self._direction)
-        # move_body     
 
-    def move_body_r(self, direction):
+
+    def move_body(self, direction):
         pass
         # move each segment into the position the segment in front was in
     """
     Changes the current direction so the next frame will move that way
     moves in the last (allowed) direction entered
     """
-    def change_direction(self, direction):
-        # if current direction is up, can't move down vv
-        # if current direction is left, can't move right vv
-        self._direction = direction
+    def change_direction(self, new_direction):
+        if new_direction == "Down" and self._direction == "Up":
+            return
+        elif new_direction == "Up" and self._direction == "Down":
+            return
+        elif new_direction == "Left" and self._direction == "Right":
+            return
+        elif new_direction == "Right" and self._direction == "Left":
+            return
+
+        self._direction = new_direction
 
 
 class Segment:
@@ -37,7 +44,7 @@ class Segment:
     _SIZE = 20
     _COLOUR = "black"
 
-    def __init__(self, x, y, canvas, max_x, max_y): # x and y position of top left corner
+    def __init__(self, x, y, canvas, max_x, max_y, index): # x and y position of top left corner
         # x and y is the top left corner of the segment (square)
         self._x = x
         self._y = y
@@ -45,7 +52,10 @@ class Segment:
         self._max_x = max_x
         self._max_y = max_y
 
-        # make create rec method
+        self.index = index
+        self.old_x = x
+        self.old_y = y
+
         self._rect_graphic = self._canvas.create_rectangle(
             self._x, self._y, 
             self._x + Segment._SIZE, self._y + Segment._SIZE, 
