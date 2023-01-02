@@ -23,7 +23,7 @@ class Window:
 
     def refresh(self):
         print("Frame Update") # this should call something to update the snake
-        self.snake.move("down")
+        self.snake.move_head("down")
         
 
         # every refresh:
