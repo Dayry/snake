@@ -1,5 +1,6 @@
 from tkinter import *
 from snake import *
+from fruit import Fruit
 
 
 class Window:
@@ -12,8 +13,10 @@ class Window:
         self._canvas = Canvas(self._root, width=width, height=height, bg="white")
         self._canvas.pack(pady=20, padx=20)
 
-        # Make the snake
-        self.snake = Snake(self._canvas, width, height)
+        # Make the snake and spawn first fruit
+        size = 20
+        self.snake = Snake(self._canvas, width, height, size, "black")
+        self.fruit = Fruit(0, 0, self._canvas, size, "blue")
 
         # Buttons
         button_quit = Button(self._root, text="exit", command=self._root.quit)

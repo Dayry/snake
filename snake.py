@@ -17,19 +17,12 @@ class Snake:
         start_y = self.max_y // 2
         for i in range(self._starting_segments):
             seg = Segment(start_x, start_y,
-                self._canvas, max_x, max_y,
+                self._canvas, self.max_x, self.max_y,
                 self.size, self.colour)
             start_y += self.size
             self._body.append(seg)
 
         self._head = self._body[0]
-
-        # next_seg = 0
-        # for i in range(5):
-        #     self._body.append(Segment(300, 100+next_seg, self._canvas, max_x, max_y, self.size, self.colour))
-        #     next_seg += 20
-
-
 
     """
         Moves head in current direction, all other segments move to the position the
@@ -42,7 +35,6 @@ class Snake:
             new_y = self._body[seg_index-1].old_y
 
             self._body[seg_index].move(self._direction, new_x, new_y)
-
 
     """
     Changes the current direction so the next frame will move that way
@@ -61,7 +53,13 @@ class Snake:
         self._direction = new_direction
 
     def grow(self):
-        pass
+        x = self._body[-1].old_x
+        y = self._body[-1].old_y
+
+        seg = Segment(x, y,
+                self._canvas, self.max_x, self.max_y,
+                self.size, self.colour)
+        self._body.append(seg)
 
 
 class Segment:
@@ -114,7 +112,6 @@ class Segment:
             fill = self.colour)
 
     """
-
     Deletes the graphical representation of the segment on the canvas and
     redraws it in the new position   
     """
@@ -152,6 +149,7 @@ class Segment:
         elif direction == "Right":
             if self._x > self._max_x - self.size:
                 self._x = 0
+
 
 
         
