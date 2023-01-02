@@ -2,7 +2,7 @@ from window import Window
 import time
 
 def main():
-    win = Window(600, 600, 500)
+    win = Window(200, 200, 500)
 
 
 
@@ -15,6 +15,7 @@ def main():
     # clean up snake creation in Snake init() call a method on win that creates the snake
     # remove some unused variables in snake/segment i.e. index, tail
     # refactor the move_head in segment WET
+    # Clean up class properties, some have _ but are accessed outside class vv
 
 
 

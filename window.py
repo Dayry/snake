@@ -16,7 +16,7 @@ class Window:
         # Make the snake and spawn first fruit
         size = 20
         self.snake = Snake(self._canvas, width, height, size, "black")
-        self.fruit = Fruit(self._canvas, size, "blue", self.snake)
+        self.fruit = Fruit(self._canvas, size, "blue", width, height, self.snake)
 
         # Buttons
         button_quit = Button(self._root, text="exit", command=self._root.quit)
