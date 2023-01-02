@@ -2,12 +2,11 @@ from window import Window
 import time
 
 def main():
-    win = Window(200, 200, 500)
+    win = Window(800, 800, 500)
 
 
 
     # todo:
-    # finish fruit random x y
     # fruit add check to see if snake hit it (check every frame)
     #   if so, then snake.grow() and fruit.spawn()
     # add lose condition if snake touches itself
@@ -16,6 +15,8 @@ def main():
     # remove some unused variables in snake/segment i.e. index, tail
     # refactor the move_head in segment WET
     # Clean up class properties, some have _ but are accessed outside class vv
+    # Checking the fruit x y % 20 == 0 is very inefficent, fix the randomint call
+    #   so it only generates %20 == 0 results
 
 
 

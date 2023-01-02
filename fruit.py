@@ -17,7 +17,6 @@ class Fruit:
 
     def spawn(self):
         self.x, self.y = self._rand_x_y()
-        print(self.x, self.y)
 
         if self._rect_graphic is not None:
             self._canvas.delete(self._rect_graphic)
@@ -34,6 +33,12 @@ class Fruit:
         while overlap:
             x = random.randint(0, self._width - self._size)
             y = random.randint(0, self._height - self._size)
+
+            # Make sure the spawn is in line with how the snake moves
+            if x % self._size != 0 or y % self._size != 0:
+                print(x, y)
+                continue
+            print(f"final x y:{x, y}")
 
             # Check the fruit won't overlap the snake
             for seg in self._snake._body:
