@@ -55,18 +55,12 @@ class Window:
 
         self.snake.change_direction(direction)
 
+    """
+    Snake moves in its current direction every frame
+    """
     def refresh(self):
-        print("Frame Update") # this should call something to update the snake
-        self.snake.move()
+        print("Frame Update")
+        self.snake.move() 
         
-
-        # every refresh:
-            # draw all parts of the snake at their current locations
-            # draw fruit at its current location
-            # snake.refresh() ??
-            # fruit.refresh() ??
-            # but then window would need access to snake and fruit hmm
-            # I can just pass snake and fruit to window i guess but 
-            # window has to passed to segments ( and therefore snake)
-            # for them get drawn hmmmmmmm
+        # Recurive loop to load next frame
         self._root.after(self._refresh_rate, self.refresh)

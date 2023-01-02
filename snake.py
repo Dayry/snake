@@ -17,6 +17,10 @@ class Snake:
 
         self._head = self._body[0]
 
+    """
+        Moves head in current direction, all other segments move to the position the
+        segment in front was in
+    """
     def move(self):
         self._head.move_head(self._direction)
         for seg_index in range(1, len(self._body)):
@@ -59,6 +63,7 @@ class Segment:
         self.size = size
         self.colour = colour
 
+        # Include this in the move refactor
         self._rect_graphic = self._canvas.create_rectangle(
             self._x, self._y, 
             self._x + self.size, self._y + self.size, 
