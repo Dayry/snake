@@ -69,6 +69,7 @@ class Window:
     def refresh(self):
         print("Frame Update")
         self.snake.move() 
+        self.fruit.did_snake_hit()
         
         # Recurive loop to load next frame
         self._root.after(self._refresh_rate, self.refresh)

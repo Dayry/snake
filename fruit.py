@@ -36,9 +36,7 @@ class Fruit:
 
             # Make sure the spawn is in line with how the snake moves
             if x % self._size != 0 or y % self._size != 0:
-                print(x, y)
                 continue
-            print(f"final x y:{x, y}")
 
             # Check the fruit won't overlap the snake
             for seg in self._snake._body:
@@ -47,3 +45,11 @@ class Fruit:
             overlap = False
         
         return x, y
+
+    def did_snake_hit(self):
+        snake_x = self._snake._head._x
+        snake_y = self._snake._head._y
+
+        if snake_x == self.x and snake_y == self.y:
+            self._snake.grow()
+            self.spawn()
