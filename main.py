@@ -7,8 +7,10 @@ def main():
 
 
     # todo:
-    # segments move to old x y of the prev, but dont want this to happen at 
-    #   very beginning
+    # finish fruit random x y
+    # fruit add check to see if snake hit it (check every frame)
+    #   if so, then snake.grow() and fruit.spawn()
+    # add lose condition if snake touches itself
     #
     # clean up snake creation in Snake init() call a method on win that creates the snake
     # remove some unused variables in snake/segment i.e. index, tail
