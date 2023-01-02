@@ -18,6 +18,8 @@ class Window:
         # Buttons
         button_quit = Button(self._root, text="exit", command=self._root.quit)
         button_quit.pack()
+        button_test_grow = Button(self._root, text="GROW", command=self._test_grow)
+        button_test_grow.pack()
 
         # Key bindings for input (has caps too just in case)
         # Up
@@ -40,6 +42,9 @@ class Window:
         # Frame loop and mainloop
         self._root.after(self._refresh_rate, self.refresh)
         self._root.mainloop()
+
+    def _test_grow(self):
+        self.snake.grow()
 
     def direction_input(self, event):
         direction = event.keysym

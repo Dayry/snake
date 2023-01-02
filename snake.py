@@ -5,17 +5,31 @@ class Snake:
         self._body = []
         self._head = None
         self._tail = None # does it need a tail??
-        self._direction = "Down"
+        self._direction = "Up"
+        self._starting_segments = 5       
         self.size = size
         self.colour = colour
+        self.max_x = max_x
+        self.max_y = max_y
 
         # Create the snake
-        next_seg = 0
-        for i in range(5):
-            self._body.append(Segment(300, 100+next_seg, self._canvas, max_x, max_y, i, self.size, self.colour))
-            next_seg += 20
+        start_x = self.max_x // 2
+        start_y = self.max_y // 2
+        for i in range(self._starting_segments):
+            seg = Segment(start_x, start_y,
+                self._canvas, max_x, max_y,
+                self.size, self.colour)
+            start_y += self.size
+            self._body.append(seg)
 
         self._head = self._body[0]
+
+        # next_seg = 0
+        # for i in range(5):
+        #     self._body.append(Segment(300, 100+next_seg, self._canvas, max_x, max_y, self.size, self.colour))
+        #     next_seg += 20
+
+
 
     """
         Moves head in current direction, all other segments move to the position the
@@ -46,10 +60,13 @@ class Snake:
 
         self._direction = new_direction
 
+    def grow(self):
+        pass
+
 
 class Segment:
 
-    def __init__(self, x, y, canvas, max_x, max_y, index, size, colour): # x and y position of top left corner
+    def __init__(self, x, y, canvas, max_x, max_y, size, colour): # x and y position of top left corner
         # x and y is the top left corner of the segment (square)
         self._x = x
         self._y = y
@@ -57,7 +74,6 @@ class Segment:
         self._max_x = max_x
         self._max_y = max_y
 
-        self.index = index
         self.old_x = x
         self.old_y = y
         self.size = size
