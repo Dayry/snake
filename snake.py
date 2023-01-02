@@ -5,6 +5,7 @@ class Snake:
         self._body = []
         self._head = None
         self._tail = None # does it need a tail??
+        self._direction = "Down"
 
         # Create the snake
         next_seg = 0
@@ -14,14 +15,21 @@ class Snake:
 
         self._head = self._body[0]
 
-    def move_head(self, direction):
-        self._head.move(direction)
-        # for seg in self._body:
-        #     seg.move(direction)
+    def move(self):
+        self._head.move(self._direction)
+        # move_body     
 
     def move_body_r(self, direction):
         pass
         # move each segment into the position the segment in front was in
+    """
+    Changes the current direction so the next frame will move that way
+    moves in the last (allowed) direction entered
+    """
+    def change_direction(self, direction):
+        # if current direction is up, can't move down vv
+        # if current direction is left, can't move right vv
+        self._direction = direction
 
 
 class Segment:
@@ -45,17 +53,16 @@ class Segment:
 
     """ 
     Deletes the graphical representation of the segment on the canvas and
-    redraws it in the new position
-        
+    redraws it in the new position   
     """
     def move(self, direction):
-        if direction == "up":
+        if direction == "Up":
             self._y -= Segment._SIZE
-        elif direction == "down":
+        elif direction == "Down":
             self._y += Segment._SIZE
-        elif direction == "left":
+        elif direction == "Left":
             self._x -= Segment._SIZE
-        elif direction == "right":
+        elif direction == "Right":
             self._x += Segment._SIZE
 
         self._check_boundary(direction)
@@ -70,25 +77,20 @@ class Segment:
     Makes the canvas wrap left right up down
     """
     def _check_boundary(self, direction):
-        if direction == "up":
+        if direction == "Up":
             if self._y < 0:
                 self._y = self._max_y - Segment._SIZE
-        elif direction == "down":
+        elif direction == "Down":
             if self._y > self._max_y - Segment._SIZE:
                 self._y = 0
         
-        elif direction == "left":
+        elif direction == "Left":
             if self._x < 0:
                 self._x = self._max_x - Segment._SIZE
-        elif direction == "right":
+        elif direction == "Right":
             if self._x > self._max_x - Segment._SIZE:
                 self._x = 0
 
-
-        if self._x >= self._max_x:
-            self._x = 0
-        if self._x < 0:
-            self._x = self._max_x
 
         
 
