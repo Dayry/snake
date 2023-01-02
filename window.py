@@ -12,11 +12,13 @@ class Window:
         self._refresh_rate = refresh_rate
         self._canvas = Canvas(self._root, width=width, height=height, bg="white")
         self._canvas.pack(pady=20, padx=20)
+        self.width = width
+        self.height = height
+        self.size = 20
 
         # Make the snake and spawn first fruit
-        size = 20
-        self.snake = Snake(self._canvas, width, height, size, "black")
-        self.fruit = Fruit(self._canvas, size, "blue", width, height, self.snake)
+        self.snake = Snake(self._canvas, self.width, self.height, self.size, "black")
+        self.fruit = Fruit(self._canvas, self.size, "blue", self.width, self.height, self.snake)
 
         # Buttons
         button_new_game = Button(self._root, text="New Game", command=self.reset)
@@ -77,4 +79,9 @@ class Window:
         self._root.after(self._refresh_rate, self.refresh)
 
     def reset(self):
+        # Clear the canvas, spawn new fruit and snake
+        self._canvas.delete("all")
+
+        self.snake = Snake(self._canvas, self.width, self.height, self.size, "black")
+        self.fruit = Fruit(self._canvas, self.size, "blue", self.width, self.height, self.snake)
         print("Reset")

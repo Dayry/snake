@@ -7,9 +7,8 @@ def main():
 
 
     # todo:
-    # when snake touches itself something can happen, but idk what
-    #   reset the screen somehow
-    #
+    # no game over, just reset snake and fruit
+    # add a score for each fruit
     # clean up snake creation in Snake init() call a method on win that creates the snake
     # remove some unused variables in snake/segment i.e. index, tail
     # refactor the move_head in segment WET
