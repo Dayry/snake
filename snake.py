@@ -61,6 +61,15 @@ class Snake:
                 self.size, self.colour)
         self._body.append(seg)
 
+    def check_self_collision(self):
+        head_x = self._head._x
+        head_y = self._head._y
+        for seg_index in range(1, len(self._body)):
+            seg = self._body[seg_index]
+            if head_x == seg._x and head_y == seg._y:
+                return True
+        return False
+
 
 class Segment:
 

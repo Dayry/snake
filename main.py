@@ -7,7 +7,8 @@ def main():
 
 
     # todo:
-    # add lose condition if snake touches itself
+    # when snake touches itself something can happen, but idk what
+    #   reset the screen somehow
     #
     # clean up snake creation in Snake init() call a method on win that creates the snake
     # remove some unused variables in snake/segment i.e. index, tail

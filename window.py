@@ -19,10 +19,10 @@ class Window:
         self.fruit = Fruit(self._canvas, size, "blue", width, height, self.snake)
 
         # Buttons
+        button_new_game = Button(self._root, text="New Game", command=self.reset)
+        button_new_game.pack()
         button_quit = Button(self._root, text="exit", command=self._root.quit)
         button_quit.pack()
-        button_test_grow = Button(self._root, text="GROW", command=self._test_grow)
-        button_test_grow.pack()
 
         # Key bindings for input (has caps too just in case)
         # Up
@@ -70,6 +70,11 @@ class Window:
         print("Frame Update")
         self.snake.move() 
         self.fruit.did_snake_hit()
+        if self.snake.check_self_collision():
+            self.reset()
         
         # Recurive loop to load next frame
         self._root.after(self._refresh_rate, self.refresh)
+
+    def reset(self):
+        print("Reset")
