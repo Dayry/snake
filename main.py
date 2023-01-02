@@ -8,6 +8,15 @@ def main():
     # its still make in win but atleast its started in main
 
 
+    # todo:
+    # segments move to old x y of the prev, but dont want this to happen at 
+    #   very beginning
+    #
+    # clean up snake creation in Snake init()
+    # remove some unused variables in snake/segment i.e. index, tail
+    # refactor the move_head in segment WET
+
+
 
 
     
