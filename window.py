@@ -14,6 +14,13 @@ class Window:
         self.width = width
         self.height = height
         self.size = 20
+        self.score = 0
+
+        # Label
+        self.score_label_var = StringVar()
+        self.score_label_var.set(f"Score: {self.score}")
+        self.score_label = Label(self._root, textvariable = self.score_label_var)
+        self.score_label.pack()
 
         self.canvas.pack(pady=20, padx=20)
 
@@ -69,9 +76,13 @@ class Window:
     def refresh(self):
         print("Frame Update")
         self.snake.move() 
-        self.fruit.did_snake_hit()
+        if self.fruit.did_snake_hit():
+            self.score += 10
+            self.score_label_var.set(f"Score: {self.score}")
         if self.snake.check_self_collision():
             self.reset()
+            self.score = 0
+            self.score_label_var.set(f"Score: {self.score}")
         
         # Recurive loop to load next frame
         self._root.after(self._refresh_rate, self.refresh)
@@ -86,4 +97,3 @@ class Window:
 
         self.snake = Snake(self.canvas, self.width, self.height, self.size, "black")
         self.fruit = Fruit(self.canvas, self.size, "blue", self.width, self.height, self.snake)
-        print("Reset")

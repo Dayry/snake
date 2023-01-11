@@ -6,11 +6,6 @@ The classic game Snake implemented in Python.
 
 Eat as much fruit as you can without eating yourself! Be careful, eating makes you grow.
 
-## Todo
-    * Snake can bite its tail without a reset
-    * No game over yet, just reset snake and fruit
-    * Add a score for each fruit
-
 ## Getting Started
 
 ### Dependencies

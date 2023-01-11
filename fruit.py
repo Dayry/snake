@@ -49,3 +49,4 @@ class Fruit:
         if snake_x == self.x and snake_y == self.y:
             self._snake.grow()
             self.spawn()
+            return True
