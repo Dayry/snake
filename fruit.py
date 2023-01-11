@@ -31,15 +31,11 @@ class Fruit:
         overlap = True
 
         while overlap:
-            x = random.randint(0, self._width - self._size)
-            y = random.randint(0, self._height - self._size)
-
-            # Make sure the spawn is in line with how the snake moves
-            if x % self._size != 0 or y % self._size != 0:
-                continue
+            x = random.randrange(0, self._width - self._size, self._size)
+            y = random.randrange(0, self._height - self._size, self._size)
 
             # Check the fruit won't overlap the snake
-            for seg in self._snake._body:
+            for seg in self._snake.body:
                 if seg._x == x and seg._y == y:
                     continue
             overlap = False
@@ -47,8 +43,8 @@ class Fruit:
         return x, y
 
     def did_snake_hit(self):
-        snake_x = self._snake._head._x
-        snake_y = self._snake._head._y
+        snake_x = self._snake.head._x
+        snake_y = self._snake.head._y
 
         if snake_x == self.x and snake_y == self.y:
             self._snake.grow()

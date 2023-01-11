@@ -2,17 +2,22 @@ class Snake:
 
     def __init__(self, canvas, max_x, max_y, size=20, colour="black"):
         self._canvas = canvas
-        self._body = []
-        self._head = None
-        self._tail = None # does it need a tail??
-        self._direction = "Up"
-        self._starting_segments = 5       
+        self.body = []
+        self.head = None
+        self.direction = "Up"       
         self.size = size
         self.colour = colour
         self.max_x = max_x
         self.max_y = max_y
+        self._starting_segments = 5
 
         # Create the snake
+        self._spawn()
+
+    """
+    Creates the segments of the snake and adds them to the body property.
+    """
+    def _spawn(self):
         start_x = self.max_x // 2
         start_y = self.max_y // 2
         for i in range(self._starting_segments):
@@ -20,52 +25,52 @@ class Snake:
                 self._canvas, self.max_x, self.max_y,
                 self.size, self.colour)
             start_y += self.size
-            self._body.append(seg)
+            self.body.append(seg)
 
-        self._head = self._body[0]
+        self.head = self.body[0]
 
     """
         Moves head in current direction, all other segments move to the position the
         segment in front was in
     """
     def move(self):
-        self._head.move_head(self._direction)
-        for seg_index in range(1, len(self._body)):
-            new_x = self._body[seg_index-1].old_x
-            new_y = self._body[seg_index-1].old_y
+        self.head.movehead(self.direction)
+        for seg_index in range(1, len(self.body)):
+            new_x = self.body[seg_index-1].old_x
+            new_y = self.body[seg_index-1].old_y
 
-            self._body[seg_index].move(self._direction, new_x, new_y)
+            self.body[seg_index].move(self.direction, new_x, new_y)
 
     """
     Changes the current direction so the next frame will move that way
     moves in the last (allowed) direction entered
     """
-    def change_direction(self, new_direction):
-        if new_direction == "Down" and self._direction == "Up":
+    def change_direction(self, newdirection):
+        if newdirection == "Down" and self.direction == "Up":
             return
-        elif new_direction == "Up" and self._direction == "Down":
+        elif newdirection == "Up" and self.direction == "Down":
             return
-        elif new_direction == "Left" and self._direction == "Right":
+        elif newdirection == "Left" and self.direction == "Right":
             return
-        elif new_direction == "Right" and self._direction == "Left":
+        elif newdirection == "Right" and self.direction == "Left":
             return
 
-        self._direction = new_direction
+        self.direction = newdirection
 
     def grow(self):
-        x = self._body[-1].old_x
-        y = self._body[-1].old_y
+        x = self.body[-1].old_x
+        y = self.body[-1].old_y
 
         seg = Segment(x, y,
                 self._canvas, self.max_x, self.max_y,
                 self.size, self.colour)
-        self._body.append(seg)
+        self.body.append(seg)
 
     def check_self_collision(self):
-        head_x = self._head._x
-        head_y = self._head._y
-        for seg_index in range(1, len(self._body)):
-            seg = self._body[seg_index]
+        head_x = self.head._x
+        head_y = self.head._y
+        for seg_index in range(1, len(self.body)):
+            seg = self.body[seg_index]
             if head_x == seg._x and head_y == seg._y:
                 return True
         return False
@@ -86,18 +91,16 @@ class Segment:
         self.size = size
         self.colour = colour
 
-        # Include this in the move refactor
-        self._rect_graphic = self._canvas.create_rectangle(
-            self._x, self._y, 
-            self._x + self.size, self._y + self.size, 
-            fill = self.colour)
+        self._rect_graphic = None
+
+        self._draw()
 
     """ 
     Special method just for moving the head segment
     Deletes the graphical representation of the segment on the canvas and
     redraws it in the new position   
     """
-    def move_head(self, direction):
+    def movehead(self, direction):
         self.old_x = self._x
         self.old_y = self._y
 
@@ -110,10 +113,11 @@ class Segment:
         elif direction == "Right":
             self._x += self.size
 
-        # This stuff will be done by all segments to refactor
-        # in seg.move() too
         self._check_boundary(direction)
+        self._draw()
+        
 
+    def _draw(self):
         self._canvas.delete(self._rect_graphic)
         self._rect_graphic = self._canvas.create_rectangle(
             self._x, self._y, 
@@ -132,14 +136,7 @@ class Segment:
         self._y = y
 
         self._check_boundary(direction)
-
-        self._canvas.delete(self._rect_graphic)
-        self._rect_graphic = self._canvas.create_rectangle(
-            self._x, self._y, 
-            self._x + self.size, self._y + self.size, 
-            fill = self.colour)
-
-
+        self._draw()
 
     """
     Makes the canvas wrap left right up down

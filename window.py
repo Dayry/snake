@@ -10,15 +10,16 @@ class Window:
         self._root = Tk()
         self._root.title("Snake")
         self._refresh_rate = refresh_rate
-        self._canvas = Canvas(self._root, width=width, height=height, bg="white")
-        self._canvas.pack(pady=20, padx=20)
+        self.canvas = Canvas(self._root, width=width, height=height, bg="white")
         self.width = width
         self.height = height
         self.size = 20
 
+        self.canvas.pack(pady=20, padx=20)
+
         # Make the snake and spawn first fruit
-        self.snake = Snake(self._canvas, self.width, self.height, self.size, "black")
-        self.fruit = Fruit(self._canvas, self.size, "blue", self.width, self.height, self.snake)
+        self.snake = Snake(self.canvas, self.width, self.height, self.size, "black")
+        self.fruit = Fruit(self.canvas, self.size, "blue", self.width, self.height, self.snake)
 
         # Buttons
         button_new_game = Button(self._root, text="New Game", command=self.reset)
@@ -48,9 +49,6 @@ class Window:
         self._root.after(self._refresh_rate, self.refresh)
         self._root.mainloop()
 
-    def _test_grow(self):
-        self.snake.grow()
-
     def direction_input(self, event):
         direction = event.keysym
 
@@ -78,10 +76,14 @@ class Window:
         # Recurive loop to load next frame
         self._root.after(self._refresh_rate, self.refresh)
 
+    """
+    Delete current graphical represention of snake and fruit, then reassign the
+    variables of each.
+    """
     def reset(self):
         # Clear the canvas, spawn new fruit and snake
-        self._canvas.delete("all")
+        self.canvas.delete("all")
 
-        self.snake = Snake(self._canvas, self.width, self.height, self.size, "black")
-        self.fruit = Fruit(self._canvas, self.size, "blue", self.width, self.height, self.snake)
+        self.snake = Snake(self.canvas, self.width, self.height, self.size, "black")
+        self.fruit = Fruit(self.canvas, self.size, "blue", self.width, self.height, self.snake)
         print("Reset")
